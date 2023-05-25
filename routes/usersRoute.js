@@ -25,8 +25,8 @@ router.post("/signup", signUpUser);
 router.get("/", requireAuth, getAllUsers);
 
 // GET ONE
-router.get("/:id", getUser);
-
+router.get("/:id", getUser); 
+   
 // UPDATE
 router.patch(
   "/:id",
