@@ -13,7 +13,7 @@ const bodyParser = require("body-parser")
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+app.use(cors({ origin: ['http://localhost:3000','https://booked-omega.vercel.app/']}))
 
 //TODO:maybe remove
 app.use(bodyParser.urlencoded({ extended: true }));
