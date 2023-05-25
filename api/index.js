@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 8080
 const app = express();
 const cors =require('cors')
 const mongoose = require('mongoose')
-const bookRoute = require ('./routes/booksRoute')
-const usersRoute = require('./routes/usersRoute')
+const bookRoute = require ('../routes/booksRoute')
+const usersRoute = require('../routes/usersRoute')
 const bodyParser = require("body-parser")
 
 app.use(express.json())
