@@ -2,7 +2,7 @@
   "name": "fs-pet-adoption-be-apathyaddict",
   "version": "1.0.0",
   "description": "",
-  "main": "api/index.js",
+  "main": "index.js",
   "engines": {
     "node": "18.x"
   },
