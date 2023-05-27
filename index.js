@@ -1,33 +1,47 @@
 const express = require('express');
-require ('dotenv').config();
+require('dotenv').config();
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080;
 
 const app = express();
-const cors =require('cors')
-const mongoose = require('mongoose')
-const bookRoute = require ('./routes/booksRoute')
-const usersRoute = require('./routes/usersRoute')
-const bodyParser = require("body-parser")
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bookRoute = require('./routes/booksRoute');
+const usersRoute = require('./routes/usersRoute');
+const bodyParser = require('body-parser');
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(cors({ origin: ['http://localhost:8080','https://full-app-book-exchange-be.vercel.app']}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// CORS configuration
+const allowCors = (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Adjust this to a specific domain in a production environment
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  next();
+};
+
+app.use(allowCors);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw());
-app.use('/books', bookRoute)  
-app.use('/users', usersRoute)
+app.use('/books', bookRoute);
+app.use('/users', usersRoute);
 
-
-//connect to DB
-mongoose.connect(process.env.MONGO_URI)
-.then(()=>{
-    app.listen(PORT, () =>{
-        console.log('connected to DB and listening on port:', PORT)
-    })
-
-})
-.catch((error)=>{console.log(error)})
-
+// Connect to DB
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log('Connected to DB and listening on port:', PORT);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
